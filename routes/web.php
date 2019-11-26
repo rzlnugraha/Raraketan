@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('order', 'OrderController@order')->name('order');
+    Route::get('master-data', 'MasterDataController@index')->name('masterdata.index');
+    Route::get('/home', 'HomeController@index')->name('home');
+
+});
