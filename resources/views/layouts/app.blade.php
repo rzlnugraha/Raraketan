@@ -73,6 +73,7 @@ to get the desired effect
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      @auth
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{ asset('assets') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -81,6 +82,7 @@ to get the desired effect
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
+      @endauth
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
