@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 </head>
 <!--
     BODY TAG OPTIONS:
@@ -137,6 +139,7 @@
             
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
+                @include('modal.modal')
                 @yield('content')
                 <!-- Content Header (Page header) -->
                 
@@ -187,6 +190,15 @@
         <!-- AdminLTE App -->
         <script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
         <script src="{{ asset('assets') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+        <!-- DataTables -->
+        <script src="{{ asset('assets') }}/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="{{ asset('assets') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
+        <script>
+        $(function () {
+            $(".datatable").DataTable();
+        });
+        </script>
 
         <script type="text/javascript">
             $(function() {
