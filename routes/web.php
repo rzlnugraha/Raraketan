@@ -28,4 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/update_customer/{id}', 'MasterDataController@update')->name('update_customer');
     Route::delete('/delete_customer/{id}', 'MasterDataController@delete_customer')->name('delete_customer');
 
+    // Order
+    Route::post('/store_order','OrderController@store')->name('order.store');
+    Route::get('/delete_session/{index}','OrderController@delete')->name('delete_session');
+
 });

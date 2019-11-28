@@ -13,191 +13,195 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            @if (!empty($imageName))
+                <img src="{{ asset('assets/'.$imageName) }}" alt="">
+            @endif
+            <form action="{{ route('order.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="row">
-                        <div class="col-md-6">
-                    
-                            <div class="card card-danger">
-                                <div class="card-header">
-                                    <h3 class="card-title">Detail</h3>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Tanggal Masuk:</label>
-                    
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-                    
-                                    <!-- Date mm/dd/yyyy -->
-                                    
-                                    <!-- /.form group -->
-                    
-                                    <!-- phone mask -->
-                                    <div class="form-group">
-                                        <label>Nomor Pesanan:</label>
-                    
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-list"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" >
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-                    
-                                    <!-- phone mask -->
-                                    <div class="form-group">
-                                        <label>Nomor Raket:</label>
-                    
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-
-                                    <div class="form-group">
-                                            <label>Tanggal Dikirim / Diambil:</label>
-                        
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
-                                    <!-- /.form group -->
-                    
-                                    <!-- IP mask -->
-                                    <!-- /.form group -->
-                    
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                    
-                    
-                            <!-- /.card -->
-                    
+                <div class="col-md-6">
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Detail</h3>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Raket</h3>
+                        <div class="card-body">
+                            <!-- Date dd/mm/yyyy -->
+                            <div class="form-group">
+                                <label>Tanggal Masuk:</label>
+            
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="date_of_entry" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                 </div>
-                                <div class="card-body">
-                                    <!-- Date range -->
-                                    <div class="form-group">
-                                        <label>Merk Raket:</label>
-                    
-                                        <div class="input-group">
-                                                <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                                        <option selected="selected">Alabama</option>
-                                                        <option>Alaska</option>
-                                                        <option>California</option>
-                                                        <option>Delaware</option>
-                                                        <option>Tennessee</option>
-                                                        <option>Texas</option>
-                                                        <option>Washington</option>
-                                                    </select>
-                                        </div>
-                                        <!-- /.input group -->
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+            
+                            <!-- Date mm/dd/yyyy -->
+                            
+                            <!-- /.form group -->
+            
+                            <!-- phone mask -->
+                            <div class="form-group">
+                                <label>Nomor Pesanan:</label>
+            
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-list"></i></span>
                                     </div>
-                                    <!-- /.form group -->
-                    
-                                    <!-- Date and time range -->
-                                    <div class="form-group">
-                                        <label>Jenis Raket:</label>
-                    
-                                        <div class="input-group">
-                                                <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                                        <option selected="selected">Alabama</option>
-                                                        <option>Alaska</option>
-                                                        <option>California</option>
-                                                        <option>Delaware</option>
-                                                        <option>Tennessee</option>
-                                                        <option>Texas</option>
-                                                        <option>Washington</option>
-                                                    </select>
-                                        </div>
-                                        <!-- /.input group -->
+                                    <input type="text" name="customer_name" class="form-control" >
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+            
+                            <!-- phone mask -->
+                            <div class="form-group">
+                                <label>Nomor Raket:</label>
+            
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                     </div>
-                                    <!-- /.form group -->
-                    
-                                    <!-- Date and time range -->
-                                    <div class="form-group">
-                                        <label>Jumlah Kerusakan:</label>
-                    
-                                        <div class="input-group">
-                                            <input type="number" name="damage_qty" id="damage_qty" class="form-control">
-                                        </div>
-                                    </div>
+                                    <input type="text" name="no_raket" class="form-control">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
 
-                                    <div class="form-group">
-                                            <label>Harga:</label>
-                        
-                                            <div class="input-group">
-                                                    <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                                            <option selected="selected">Alabama</option>
-                                                            <option>Alaska</option>
-                                                            <option>California</option>
-                                                            <option>Delaware</option>
-                                                            <option>Tennessee</option>
-                                                            <option>Texas</option>
-                                                            <option>Washington</option>
-                                                        </select>
-                                            </div>
-                                            <!-- /.input group -->
+                            <div class="form-group">
+                                    <label>Tanggal Dikirim / Diambil:</label>
+                
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                         </div>
-                                    <!-- /.form group -->
-                    
+                                        <input type="text" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    </div>
+                                    <!-- /.input group -->
                                 </div>
-                                <!-- /.card-body -->
-                            </div>
+                            <!-- /.form group -->
+            
+                            <!-- IP mask -->
+                            <!-- /.form group -->
+            
                         </div>
-                        <div class="col-md-12">
-                                <div class="card card-success">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Raket</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <!-- Date range -->
-                                        <div class="form-group">
-                                            <label>List Kerusakan:</label>
-                        
-                                            <div class="input-group">
-                                                    <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                                            <option selected="selected">Alabama</option>
-                                                            <option>Alaska</option>
-                                                            <option>California</option>
-                                                            <option>Delaware</option>
-                                                            <option>Tennessee</option>
-                                                            <option>Texas</option>
-                                                            <option>Washington</option>
-                                                        </select>
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
-                                        <h1>ATAU NGA GAMBAR TEA GENING</h1>
-                                        <!-- /.form group -->
-                        
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                            </div>
+                        <!-- /.card-body -->
                     </div>
-                    
+                    <!-- /.card -->
+            
+            
+                    <!-- /.card -->
+            
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Raket</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <label>Merk Raket:</label>
+            
+                                <div class="input-group">
+                                        <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                            <option disabled selected="selected">Pilih</option>
+                                            @foreach ($merks as $merk)
+                                            <option value="{{ $merk->id }}">{{ $merk->merk_name }}</option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+            
+                            <!-- Date and time range -->
+                            <div class="form-group">
+                                <label>Jenis Raket:</label>
+            
+                                <div class="input-group">
+                                    <input name="jenis_raket" list="rakets" class="form-control">
+
+                                    <datalist id="rakets">
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type->type_name }}"></option>
+                                        @endforeach
+                                    </datalist>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+            
+                            <!-- Date and time range -->
+                            <div class="form-group">
+                                <label>Jumlah Kerusakan:</label>
+            
+                                <div class="input-group">
+                                    <input name="damage_qty" type="number" name="damage_qty" id="damage_qty" min="1" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>Harga:</label>
+                
+                                    <div class="input-group">
+                                        <select name="price" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                            <option disabled selected>Pilih</option>
+                                            @foreach ($prices as $price)
+                                            <option value="{{ $price->price }}">{{ $price->price }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                            <!-- /.form group -->
+            
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Raket</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Date range -->
+                                <div class="form-group">
+                                    <label>List Kerusakan:</label>
+                
+                                    <div class="input-group">
+                                        <select name="damage_position" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                            <option selected="selected">Alabama</option>
+                                            <option>Alaska</option>
+                                            <option>California</option>
+                                            <option>Delaware</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Washington</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <h1>Gambar (Opsional)</h1>
+                                <div id="signature" style="width:100%"></div>
+
+                                <input type='button' id='click' value='click'>
+                               <textarea id='output'></textarea><br/>
+
+<!-- Preview image -->
+<img src='' id='sign_prev' style='display: none;' />
+                                <!-- /.form group -->
+                
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+            </div>
+            <button type="submit" class="btn btn-danger btn-lg">Save</button>
+            </form>
             <!-- /.row -->
             
             <!-- /.row -->
@@ -223,95 +227,58 @@
             <!-- /.card-header -->
             <div class="card-body">
                     <div class="row">
-                            <div class="col-md-12">
-                                    <div class="card card-warning">
-                                        <div class="card-header">
-                                            <h3 class="card-title">List Input Barang</h3>
-                                        </div>
-                                        <div class="card">
-                                                <!-- /.card-header -->
-                                                <div class="card-body p-0">
-                                                  <table class="table table-striped">
-                                                    <thead>
-                                                      <tr>
-                                                        <th style="width: 10px">#</th>
-                                                        <th>Raket</th>
-                                                        <th>Kerusakan</th>
-                                                        <th style="width: 60px">Harga</th>
-                                                        <th style="width: 60px">Jumlah</th>
-                                                        <th style="width: 60px">Subtotal</th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      <tr>
-                                                        <td>1.</td>
-                                                        <td>Update software</td>
-                                                        <td>
-                                                          <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                          </div>
-                                                        </td>
-                                                        <td><span class="badge bg-danger">55%</span></td>
-                                                        <td><span class="badge bg-danger">55%</span></td>
-                                                        <td><span class="badge bg-danger">55%</span></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>2.</td>
-                                                        <td>Clean database</td>
-                                                        <td>
-                                                          <div class="progress progress-xs">
-                                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                                          </div>
-                                                        </td>
-                                                        <td><span class="badge bg-warning">70%</span></td>
-                                                        <td><span class="badge bg-warning">70%</span></td>
-                                                        <td><span class="badge bg-warning">70%</span></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>3.</td>
-                                                        <td>Cron job running</td>
-                                                        <td>
-                                                          <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                          </div>
-                                                        </td>
-                                                        <td><span class="badge bg-primary">30%</span></td>
-                                                        <td><span class="badge bg-primary">30%</span></td>
-                                                        <td><span class="badge bg-primary">30%</span></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>4.</td>
-                                                        <td>Fix and squish bugs</td>
-                                                        <td>
-                                                          <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                                                          </div>
-                                                        </td>
-                                                        <td><span class="badge bg-success">90%</span></td>
-                                                        <td><span class="badge bg-success">90%</span></td>
-                                                        <td><span class="badge bg-success">90%</span></td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td align="right" colspan="5">Total Keseluruhan :</td>
-                                                          <td>20.000</td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-                                                </div>
+                        <div class="col-md-12">
+                            <div class="card card-warning">
+                                <div class="card-header">
+                                    <h3 class="card-title">List Input Barang</h3>
+                                </div>
+                                <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table class="table table-striped datatable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Raket</th>
+                                                <th>Kerusakan</th>
+                                                <th style="width: 60px">Harga</th>
+                                                <th style="width: 60px">Jumlah</th>
+                                                <th style="width: 60px">Subtotal</th>
+                                                <th style="width: 60px">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($datas != null)
+                                            @php
+                                                $no = 1;
+                                            @endphp
+                                            @foreach ($datas as $index => $data)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $data['jenis_raket'] }}</td>
+                                                <td>{{ $data['damage_qty'] }}</td>
+                                                <td>{{ $data['price'] }}</td>
+                                                <td>1</td>
+                                                <td>{{ $data['price'] }}</td>
+                                                <td>
+                                                    <a href="{{ route('delete_session',$index) }}" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
 
-                                                <!-- /.card-body -->
-                                              </div>
-                                              <br>
-                                              <button class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
-                                              <br>
-                                        <!-- /.card-body -->
+                                        </tbody>
+                                        </table>
                                     </div>
                                 </div>
+                                
+                                <br>
+                                <button type="submit" class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
+                                <br>
+                                <!-- /.card-body -->
+                            </div>
                         </div>
-                        
-                <!-- /.row -->
-                
-                <!-- /.row -->
+                    </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -323,6 +290,47 @@
 
 @endsection
 @section('script')
+<script src="{{ asset('assets') }}/libs/jSignature.min.js"></script>
+<script src="{{ asset('assets') }}/libs/modernizr.js"></script>
+<script>
+$(document).ready(function() {
+
+ // Initialize jSignature
+ var $sigdiv = $("#signature").jSignature({'UndoButton':true});
+
+ $('#click').click(function(){
+  // Get response of type image
+  var data = $sigdiv.jSignature('getData', 'image');
+
+  // Storing in textarea
+  $('#output').val(data);
+
+  // Alter image source 
+  $('#sign_prev').attr('src',"data:"+data);
+  $('#sign_prev').show();
+ });
+});
+</script>
+<script>
+$(document).on('change', '#rakets', function(){
+        var select_city = $(this).parents('form').find('#city');
+        select_city.parent().find('input').val('Sedang Memuat Data Kota');
+        $.ajax({
+            url: "{!! route('ajax::city') !!}",
+            dataType: "json",
+            data: {'province_id': $(this).val()},
+            success: function(response){
+                $(select_city).val('');
+                $(select_city).find('option:not(:first)').remove();
+                for (var i = 0; i < response.data.length; i++) {
+                    $(select_city).append('<option value="'+response.data[i].id+'">'+response.data[i].name+'</option>');
+                }
+                $(select_city).material_select('destroy');
+                $(select_city).material_select();
+            }
+        });
+    });
+</script>
 <script>
     $(function () {
         //Initialize Select2 Elements
@@ -392,4 +400,25 @@
         
     })
 </script>
+
+<script>
+$(document).ready(function() {
+
+ // Initialize jSignature
+ var $sigdiv = $("#signature").jSignature({'UndoButton':true});
+
+ $('#click').click(function(){
+  // Get response of type image
+  var data = $sigdiv.jSignature('getData', 'image');
+
+  // Storing in textarea
+  $('#output').val(data);
+
+  // Alter image source 
+  $('#sign_prev').attr('src',"data:"+data);
+  $('#sign_prev').show();
+ });
+});
+</script>
+
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Customer;
+use App\Merk;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('forms.tambah_customer', function ($view) {
-            $view->with('user', Customer::all());
+        view()->composer('forms.jenis_merk', function ($view) {
+            $view->with('merks', Merk::all());
         });
     }
 }

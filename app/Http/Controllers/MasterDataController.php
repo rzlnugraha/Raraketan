@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Merk;
 use App\Price;
+use App\Typeraket;
 use Illuminate\Http\Request;
 
 class MasterDataController extends Controller
@@ -12,7 +14,9 @@ class MasterDataController extends Controller
     {
         $user = Customer::latest()->get();
         $harga = Price::latest()->get();
-        return view('master_data.index', compact('user','harga'));
+        $merks = Merk::latest()->get();
+        $types = Typeraket::latest()->get();
+        return view('master_data.index', compact('user','harga','merks','types'));
     }
 
     public function store(Request $request)
@@ -21,8 +25,10 @@ class MasterDataController extends Controller
             Customer::create($request->all());
         } elseif ($request->tipe_store == 'price') {
             Price::create($request->all());
-        } else {
-
+        } elseif ($request->tipe_store == 'merk') {
+            Merk::create($request->all());
+        } elseif ($request->tipe_store == 'tipe_merk') {
+            Typeraket::create($request->all());
         }
         return back();
     }
