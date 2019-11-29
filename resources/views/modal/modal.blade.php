@@ -81,3 +81,24 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Kerusakan -->
+<div class="modal fade" id="modalKerusakan">
+    <div class="modal-dialog">
+        <div class="modal-content bg-default">
+        <div class="modal-header">
+            <h4 class="modal-title">Tambah Data Gambar Kerusakan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @include('forms.kerusakan', [
+                'button' => 'Save'
+            ])
+        </div>
+        </form>
+        </div>
+    </div>
+</div>

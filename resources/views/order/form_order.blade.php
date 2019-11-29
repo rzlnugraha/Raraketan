@@ -33,17 +33,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="text" name="date_of_entry" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input type="date" value="{{ date('Y-m-d') }}" disabled name="date_of_entry" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                 </div>
-                                <!-- /.input group -->
                             </div>
-                            <!-- /.form group -->
-            
-                            <!-- Date mm/dd/yyyy -->
-                            
-                            <!-- /.form group -->
-            
-                            <!-- phone mask -->
                             <div class="form-group">
                                 <label>Nomor Pesanan:</label>
             
@@ -51,7 +43,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list"></i></span>
                                     </div>
-                                    <input type="text" name="customer_name" class="form-control" >
+                                    <input type="text" name="customer_name" class="form-control" value="{{ 'SRKT'.strtoupper(str_random(5)) }}" readonly>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -71,29 +63,17 @@
                             </div>
 
                             <div class="form-group">
-                                    <label>Tanggal Dikirim / Diambil:</label>
-                
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="text" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <label>Tanggal Dikirim / Diambil:</label>
+            
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <!-- /.input group -->
+                                    <input type="date" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                 </div>
-                            <!-- /.form group -->
-            
-                            <!-- IP mask -->
-                            <!-- /.form group -->
-            
+                            </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-            
-            
-                    <!-- /.card -->
-            
                 </div>
                 <div class="col-md-6">
                     <div class="card card-primary">
@@ -106,28 +86,22 @@
                                 <label>Merk Raket:</label>
             
                                 <div class="input-group">
-                                        <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
-                                            <option disabled selected="selected">Pilih</option>
-                                            @foreach ($merks as $merk)
-                                            <option value="{{ $merk->id }}">{{ $merk->merk_name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;" id="merk_raket">
+                                        <option disabled selected="selected">Pilih</option>
+                                        @foreach ($merks as $merk)
+                                        <option value="{{ $merk->id }}">{{ $merk->merk_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <!-- /.input group -->
                             </div>
-                            <!-- /.form group -->
-            
-                            <!-- Date and time range -->
                             <div class="form-group">
                                 <label>Jenis Raket:</label>
             
                                 <div class="input-group">
-                                    <input name="jenis_raket" list="rakets" class="form-control">
+                                    <input name="jenis_raket" list="raket" class="form-control" autocomplete="off" placeholder="Harus pilih merk dulu">
 
-                                    <datalist id="rakets">
-                                        @foreach ($types as $type)
-                                            <option value="{{ $type->type_name }}"></option>
-                                        @endforeach
+                                    <datalist id="raket">
+                                        
                                     </datalist>
                                 </div>
                                 <!-- /.input group -->
@@ -139,7 +113,7 @@
                                 <label>Jumlah Kerusakan:</label>
             
                                 <div class="input-group">
-                                    <input name="damage_qty" type="number" name="damage_qty" id="damage_qty" min="1" class="form-control">
+                                    <input name="damage_qty" type="number" name="damage_qty" id="damage_qty" min="1" class="form-control" placeholder="Jumlah Kerusakan ada berapa">
                                 </div>
                             </div>
 
@@ -173,30 +147,27 @@
                                     <label>List Kerusakan:</label>
                 
                                     <div class="input-group">
-                                        <select name="damage_position" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
+                                        @forelse ($damages as $damage)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="damage_image" value="{{ $damage->damage_image }}">
+                                            <label class="form-check-label"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>
+                                        </div>
+                                        @empty
+                                            
+                                        @endforelse
                                     </div>
                                     <!-- /.input group -->
                                 </div>
                                 <h1>Gambar (Opsional)</h1>
-                                <div id="signature" style="width:100%"></div>
+                                {{-- <div id="signature" style="width:100%"></div>
 
                                 <input type='button' id='click' value='click'>
-                               <textarea id='output'></textarea><br/>
+                                <textarea id='output'></textarea><br/> --}}
 
-<!-- Preview image -->
-<img src='' id='sign_prev' style='display: none;' />
+                                <!-- Preview image -->
+                                {{-- <img src='' id='sign_prev' style='display: none;' /> --}}
                                 <!-- /.form group -->
-                
                             </div>
-                            <!-- /.card-body -->
                         </div>
                     </div>
             </div>
@@ -211,9 +182,6 @@
             
         </div>
     </div>
-
-
-
 
     <div class="card card-default">
             <div class="card-header">
@@ -256,10 +224,10 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $data['jenis_raket'] }}</td>
+                                                <td><img src="{{ asset('images/kerusakan/'.$data['damage_image']) }}"></td>
+                                                <td>{{ 'Rp. '.number_format($data['price'],0,',','.') }}</td>
                                                 <td>{{ $data['damage_qty'] }}</td>
-                                                <td>{{ $data['price'] }}</td>
-                                                <td>1</td>
-                                                <td>{{ $data['price'] }}</td>
+                                                <td>{{ 'Rp. '.number_format($data['price'] * $data['damage_qty'],0,',','.') }}</td>
                                                 <td>
                                                     <a href="{{ route('delete_session',$index) }}" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
@@ -290,6 +258,7 @@
 
 @endsection
 @section('script')
+
 <script src="{{ asset('assets') }}/libs/jSignature.min.js"></script>
 <script src="{{ asset('assets') }}/libs/modernizr.js"></script>
 <script>
@@ -310,26 +279,6 @@ $(document).ready(function() {
   $('#sign_prev').show();
  });
 });
-</script>
-<script>
-$(document).on('change', '#rakets', function(){
-        var select_city = $(this).parents('form').find('#city');
-        select_city.parent().find('input').val('Sedang Memuat Data Kota');
-        $.ajax({
-            url: "{!! route('ajax::city') !!}",
-            dataType: "json",
-            data: {'province_id': $(this).val()},
-            success: function(response){
-                $(select_city).val('');
-                $(select_city).find('option:not(:first)').remove();
-                for (var i = 0; i < response.data.length; i++) {
-                    $(select_city).append('<option value="'+response.data[i].id+'">'+response.data[i].name+'</option>');
-                }
-                $(select_city).material_select('destroy');
-                $(select_city).material_select();
-            }
-        });
-    });
 </script>
 <script>
     $(function () {
@@ -419,6 +368,25 @@ $(document).ready(function() {
   $('#sign_prev').show();
  });
 });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#merk_raket').on('change', function (e) {
+            console.log(e);
+            var merk_id = e.target.value;
+            $.get('json_rakets?merk_id=' + merk_id, function (data) {
+                console.log(data);
+
+                $('#raket').empty();
+                $('#raket').append('<option disabled selected>Pilih</option>');
+
+                $.each(data, function (index, raketObj) {
+                    $('#raket').append('<option value="'+ raketObj.type_name +'">'+ raketObj.type_name +'</option>');
+                });
+            });
+        });
+    });
 </script>
 
 @endsection

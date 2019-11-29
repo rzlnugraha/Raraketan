@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Damage;
 use App\Merk;
 use App\Price;
 use App\Typeraket;
@@ -16,7 +17,8 @@ class MasterDataController extends Controller
         $harga = Price::latest()->get();
         $merks = Merk::latest()->get();
         $types = Typeraket::latest()->get();
-        return view('master_data.index', compact('user','harga','merks','types'));
+        $damages = Damage::latest()->get();
+        return view('master_data.index', compact('user','harga','merks','types','damages'));
     }
 
     public function store(Request $request)
@@ -29,6 +31,13 @@ class MasterDataController extends Controller
             Merk::create($request->all());
         } elseif ($request->tipe_store == 'tipe_merk') {
             Typeraket::create($request->all());
+        } elseif ($request->tipe_store == 'damage') {
+            $damage = new Damage();
+            $path = '/images/kerusakan/';
+            $foto = 'damage-' . str_random(2) . time() . '.' . $request->file('damage_image')->getClientOriginalExtension();
+            $request->damage_image->move(public_path($path), $foto);
+            $damage->damage_image = $foto;
+            $damage->save();
         }
         return back();
     }

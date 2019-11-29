@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,5 +20,9 @@ Route::group(['middleware' => ['auth']], function () {
     // Order
     Route::post('/store_order','OrderController@store')->name('order.store');
     Route::get('/delete_session/{index}','OrderController@delete')->name('delete_session');
+
+    // Dynamic Dropdown Ajax
+    Route::get('/merk','AjaxController@merk')->name('merk_dropdown');
+    Route::get('/json_rakets', 'AjaxController@json_rakets')->name('json_rakets');
 
 });

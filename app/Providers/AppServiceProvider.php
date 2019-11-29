@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Customer;
+use App\Damage;
 use App\Merk;
 use Illuminate\Support\ServiceProvider;
 
