@@ -27,13 +27,39 @@
                         <div class="card-body">
                             <!-- Date dd/mm/yyyy -->
                             <div class="form-group">
+                                <label>Customer/Toko:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <select name="customer_id" id="customer" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                <option value="" selected="selected">Pilih Customer</option>
+                                                @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ 'Customer : '.$customer->customer_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <select name="customer_id" id="toko" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                <option value="" selected="selected">Pilih Toko</option>
+                                                @foreach ($tokos as $toko)
+                                                <option value="{{ $toko->id }}">{{ 'Toko : '.$toko->toko.' / Nama Cust : '.$toko->customer_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group">
                                 <label>Tanggal Masuk:</label>
             
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" value="{{ date('Y-m-d') }}" disabled name="date_of_entry" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input type="date" value="{{ date('Y-m-d') }}" name="date_of_entry" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -385,6 +411,27 @@ $(document).ready(function() {
                     $('#raket').append('<option value="'+ raketObj.type_name +'">'+ raketObj.type_name +'</option>');
                 });
             });
+        });
+
+        $('#customer').on('change', function () {
+            var cust = $('#customer').val();
+            var toko = $('#toko').val();
+            if (cust.trim() != "") {
+                $('#toko').attr('disabled','disabled');
+            } else if (cust.trim() == "") {
+                $('#toko').removeAttr('disabled');
+            } else {
+            }
+        });
+
+        $('#toko').on('change', function () {
+            var cust = $('#customer').val();
+            var toko = $('#toko').val();
+            if (toko.trim() != "") {
+                $('#customer').attr('disabled','disabled');
+            } else {
+                $('#customer').removeAttr('disabled');
+            }
         });
     });
 </script>

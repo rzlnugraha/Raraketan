@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Damage;
 use App\Merk, Session;
 use App\Price;
@@ -16,8 +17,10 @@ class OrderController extends Controller
         $types = Typeraket::all();
         $prices = Price::all();
         $damages = Damage::all();
+        $customers = Customer::where('toko',null)->get();
+        $tokos = Customer::where('toko','!=',null)->get();
         $datas = $request->session()->get('list');
-        return view('order.form_order', compact('merks','types','prices','datas','damages'));
+        return view('order.form_order', compact('merks','types','prices','datas','damages','customers','tokos'));
     }
 
     public function store(Request $request)
@@ -33,11 +36,11 @@ class OrderController extends Controller
         // $imageName = str_random(10) . '.' . 'png';
         // \File::put(public_path() . '/' . $imageName, base64_decode($image));
         $data = [
+            'customer_id' => $request->customer_id,
             'date_of_entry' => $request->date_of_entry,
             'customer_name' => $request->customer_name,
             'no_raket' => $request->no_raket,
             'jenis_raket' => $request->jenis_raket,
-            'damage_position' => $request->damage_position,
             'damage_image' => $request->damage_image,
             'damage_qty' => $request->damage_qty,
             'price' => $request->price,

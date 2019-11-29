@@ -8,6 +8,7 @@ use App\Merk;
 use App\Price;
 use App\Typeraket;
 use Illuminate\Http\Request;
+use Alert;
 
 class MasterDataController extends Controller
 {
@@ -40,6 +41,7 @@ class MasterDataController extends Controller
             $damage->damage_image = $foto;
             $damage->save();
         }
+        Alert::success('Berhasil menambah data','Success');
         return back();
     }
 
@@ -66,12 +68,14 @@ class MasterDataController extends Controller
         } else {
 
         }
+        Alert::info('Berhasil merubah data','Success');
         return redirect()->route('masterdata.index');
     }
 
     public function delete_customer($id)
     {
         Customer::destroy($id);
+        Alert::success('Berhasil menghapus data','Delete');
         return back();
     }
 
