@@ -124,7 +124,7 @@
                                         <select name="price" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
                                             <option disabled selected>Pilih</option>
                                             @foreach ($prices as $price)
-                                            <option value="{{ $price->price }}">{{ $price->price }}</option>
+                                            <option value="{{ $price->price }}">{{ 'Rp. '.number_format($price->price,0,',','.') }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -211,7 +211,7 @@
                                                 <th>Kerusakan</th>
                                                 <th style="width: 60px">Harga</th>
                                                 <th style="width: 60px">Jumlah</th>
-                                                <th style="width: 60px">Subtotal</th>
+                                                <th style="width: 100px">Subtotal</th>
                                                 <th style="width: 60px">Action</th>
                                             </tr>
                                         </thead>
@@ -224,7 +224,7 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $data['jenis_raket'] }}</td>
-                                                <td><img src="{{ asset('images/kerusakan/'.$data['damage_image']) }}"></td>
+                                                <td><img src="{{ asset('images/kerusakan/'.$data['damage_image']) }}" width="150px" height="100px"></td>
                                                 <td>{{ 'Rp. '.number_format($data['price'],0,',','.') }}</td>
                                                 <td>{{ $data['damage_qty'] }}</td>
                                                 <td>{{ 'Rp. '.number_format($data['price'] * $data['damage_qty'],0,',','.') }}</td>

@@ -13,12 +13,13 @@ class MasterDataController extends Controller
 {
     public function index()
     {
-        $user = Customer::latest()->get();
+        $user = Customer::where('toko',null)->latest()->get();
+        $tokos = Customer::where('toko', '!=', null)->latest()->get();
         $harga = Price::latest()->get();
         $merks = Merk::latest()->get();
         $types = Typeraket::latest()->get();
         $damages = Damage::latest()->get();
-        return view('master_data.index', compact('user','harga','merks','types','damages'));
+        return view('master_data.index', compact('user','harga','merks','types','damages','tokos'));
     }
 
     public function store(Request $request)
@@ -46,6 +47,12 @@ class MasterDataController extends Controller
     {
         $customer = Customer::find($id);
         return view('master_data.edit_customer', compact('customer'));
+    }
+
+    public function edit_toko($id)
+    {
+        $customer = Customer::find($id);
+        return view('master_data.edit_toko', compact('customer'));
     }
     
     public function update(Request $request, $id)

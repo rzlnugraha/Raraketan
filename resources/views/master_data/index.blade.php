@@ -45,7 +45,60 @@
                             </tr>
                             @empty
                             <tr>
-                                <td align="center" colspan="2">Data Tidak Ada</td>
+                                <td align="center" colspan="3"><strong>Data Tidak Ada</strong></td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tabel Toko</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <a type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#modalToko">
+                    <i class="fa fa-plus"></i>
+                    </a>
+                    <table class="table table-striped datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Nama Toko</th>
+                                <th>Nama Customer</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @forelse ($tokos as $toko)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $toko->toko }}</td>
+                                <td>{{ $toko->customer_name }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('edit_toko',$toko->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <form action="{{ route('delete_customer',$toko->id) }}" method="post">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td align="center" colspan="4"><strong>Data Tidak Ada</strong></td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -97,6 +150,9 @@
                                 </td>
                             </tr>
                             @empty
+                            <tr>
+                                <td colspan="3"><strong>Data tidak ada</strong></td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -238,7 +294,9 @@
                                 </td>
                             </tr>
                             @empty
-                                
+                                <tr>
+                                    <td colspan="3"><strong>Data tidak ada</strong></td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
