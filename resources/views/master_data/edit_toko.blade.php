@@ -6,7 +6,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('update_customer',$customer->id) }}" method="post">
+            <form action="{{ route('update',$customer->id) }}" method="post">
                 @csrf @method('PUT')
                 @include('forms.toko')
             </form>

@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('forms.jenis_merk', function ($view) {
-            $view->with('merks', Merk::all());
-        });
+        
     }
 }

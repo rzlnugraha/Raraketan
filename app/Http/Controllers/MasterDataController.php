@@ -45,11 +45,31 @@ class MasterDataController extends Controller
         return back();
     }
 
+    public function editJenisMerk($id)
+    {
+        $merks = Merk::all();
+        $tipe_merk = Typeraket::find($id);
+        return view('master_data.edit_jenis_merk', compact('tipe_merk','merks'));
+    }
+
+    public function edit_damage($id)
+    {
+        $rusak = Damage::find($id);
+        return view('master_data.edit_damage', compact('rusak'));
+    }
+
     public function edit_customer($id)
     {
         $customer = Customer::find($id);
         return view('master_data.edit_customer', compact('customer'));
     }
+
+    public function edit_merk($id)
+    {
+        $merk = Merk::find($id);
+        return view('master_data.edit_merk', compact('merk'));
+    }
+
 
     public function edit_toko($id)
     {
@@ -65,11 +85,43 @@ class MasterDataController extends Controller
         } elseif ($request->tipe_store == 'price') {
             $price = Price::find($id);
             $price->update($request->all());
-        } else {
+        } elseif ($request->tipe_store == 'damage') {
+            $damage = Damage::find($id);
+            $path = '/images/kerusakan/';
+            unlink(public_path($path.$damage->damage_image));
 
+            $foto = 'damage-' . str_random(2) . time() . '.' . $request->file('damage_image')->getClientOriginalExtension();
+            $request->damage_image->move(public_path($path), $foto);
+            $damage->damage_image = $foto;
+            $damage->save();
+        } elseif ($request->tipe_store == 'merk') {
+            $merk = Merk::find($id);
+            $merk->update($request->all());
+        }elseif ($request->tipe_store == 'tipe_merk') {
+            $typeraket = Typeraket::find($id);
+            $typeraket->update($request->all());
         }
         Alert::info('Berhasil merubah data','Success');
         return redirect()->route('masterdata.index');
+    }
+
+    public function Delete($id,$type)
+    {
+        if ($type == 'price') {
+            $price = Price::destroy($id);
+        }elseif ($type == 'damage') {
+            $dmg = Damage::find($id);
+            $path = '/images/kerusakan/';
+            unlink(public_path($path.$dmg->damage_image));
+            $damage = Damage::destroy($id);
+
+        }elseif ($type == 'merk') {
+            $merk = Merk::destroy($id);
+            $typeraket = Typeraket::where('merk_id',$id)->delete();
+        }elseif ($type == 'tipe-merk') {
+            $typeraket = Typeraket::destroy($id);
+        }
+        return redirect('master-data');
     }
 
     public function delete_customer($id)
@@ -83,7 +135,8 @@ class MasterDataController extends Controller
 
     public function edit_harga($id)
     {
-        
+        $price = Price::find($id);
+        return view('master_data.edit_harga', ['price' => $price]);
     }
 
     public function delete_harga($id)

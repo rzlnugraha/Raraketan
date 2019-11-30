@@ -6,12 +6,12 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Tabel Customer</h3>
+                    <h3 class="card-title">Tabel Customer </h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <a type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#modal-primary">
-                    <i class="fa fa-plus"></i>
+                        <i class="fa fa-plus"></i>
                     </a>
                     <table class="table table-striped datatable">
                         <thead>
@@ -23,7 +23,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $no = 1;
+                            $no = 1;
                             @endphp
                             @forelse ($user as $item)
                             <tr>
@@ -62,7 +62,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <a type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#modalToko">
-                    <i class="fa fa-plus"></i>
+                        <i class="fa fa-plus"></i>
                     </a>
                     <table class="table table-striped datatable">
                         <thead>
@@ -75,7 +75,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $no = 1;
+                            $no = 1;
                             @endphp
                             @forelse ($tokos as $toko)
                             <tr>
@@ -128,9 +128,8 @@
                         </thead>
                         <tbody>
                             @php
-                                $no=1;
+                            $no=1;
                             @endphp
-
                             @forelse ($harga as $price)
                             <tr>
                                 <td>{{ $no++ }}</td>
@@ -138,10 +137,62 @@
                                 <td>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <a href="{{ route('edit_customer',$price->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('edit_harga',$price->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <form action="{{ route('delete_customer',$price->id) }}" method="post">
+                                            <form action="{{ url('delete').'/'.$price->id.'/price' }}" method="post">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="3"><strong>Data tidak ada</strong></td>
+                            </tr>
+                            @endforelse
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tabel Kerusakan</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <a type="button" class="btn btn-dark btn-sm mb-3" data-toggle="modal" data-target="#modalKerusakan">
+                        <i style="color:white;" class="fa fa-plus"></i>
+                    </a>
+                    <table class="table table-striped datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Gambar</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                            $no=1;
+                            @endphp
+                            @forelse ($damages as $damage)
+                            <tr>
+                                <td>{{ $no }}</td>
+                                <td><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" alt="" width="150px" height="100px"></td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('edit_damage',$damage->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <form action="{{ url('delete').'/'.$damage->id.'/damage' }}" method="post">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
                                             </form>
@@ -157,8 +208,8 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
     <div class="row">
@@ -182,7 +233,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $no=1;
+                            $no=1;
                             @endphp
                             @foreach ($merks as $merk)
                             <tr>
@@ -191,10 +242,10 @@
                                 <td>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <a href="{{ route('edit_customer',$price->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('edit_merk',$merk->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <form action="{{ route('delete_customer',$price->id) }}" method="post">
+                                            <form action="{{ url('delete').'/'.$merk->id.'/merk' }}" method="post">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
                                             </form>
@@ -231,7 +282,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $no=1;
+                            $no=1;
                             @endphp
                             @foreach ($types as $type)
                             <tr>
@@ -241,10 +292,10 @@
                                 <td>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <a href="{{ route('edit_customer',$type->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('edit_jenis_merk',$type->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <form action="{{ route('delete_customer',$type->id) }}" method="post">
+                                            <form action="{{ url('delete').'/'.$type->id.'/tipe-merk' }}" method="post">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
                                             </form>
@@ -262,47 +313,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Tabel Kerusakan</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <a type="button" class="btn btn-dark btn-sm mb-3" data-toggle="modal" data-target="#modalKerusakan">
-                        <i style="color:white;" class="fa fa-plus"></i>
-                    </a>
-                    <table class="table table-striped datatable">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Gambar</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no=1;
-                            @endphp
-                            @forelse ($damages as $damage)
-                            <tr>
-                                <td>{{ $no }}</td>
-                                <td><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" alt="" width="150px" height="100px"></td>
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3"><strong>Data tidak ada</strong></td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
+            
         </div>
     </div>
 </div>

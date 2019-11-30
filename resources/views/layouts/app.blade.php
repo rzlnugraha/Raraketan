@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | General Form Elements</title>
+  <title>Raket Services</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,6 +30,9 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="{{ asset('js/sweetalert.css') }}">
+
+    {{-- plugin draw --}}
+    
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -140,6 +143,15 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
+  @if (Session::has('sweet_alert.alert'))
+    <script>
+        swal({
+            text: "{!! Session::get('sweet_alert.text') !!}",
+            icon: "{!! Session::get('sweet_alert.success') !!}",
+            // more options
+        });
+    </script>
+@endif
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
@@ -172,50 +184,9 @@ $(document).ready(function () {
         $(".datatable").DataTable();
     });
 </script>
-<script type="text/javascript">
-    $(function() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    
-        $('.swalDefaultSuccess').click(function() {
-        Toast.fire({
-            type: 'success',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-        });
-        $('.swalDefaultInfo').click(function() {
-        Toast.fire({
-            type: 'info',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-        });
-        $('.swalDefaultError').click(function() {
-        Toast.fire({
-            type: 'error',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-        });
-        $('.swalDefaultWarning').click(function() {
-        Toast.fire({
-            type: 'warning',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-        });
-        $('.swalDefaultQuestion').click(function() {
-        Toast.fire({
-            type: 'question',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-        });
-    });
-    
-    </script>
+
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-    @include('sweet::alert')
+
 @yield('script')
 </body>
 </html>

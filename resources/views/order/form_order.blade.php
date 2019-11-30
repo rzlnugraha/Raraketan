@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    html { font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif; background: #eee}
+    h1 { text-shadow: 1px 2px 5px #000; color: #fff }
+    canvas { background: #fff; border: 1px solid #999; -moz-border-radius: 10px; -webkit-border-radius: 10px }
+    a { color: #666; text-decoration: none }
+    a:hover { text-decoration: underline; color: #000 }
+</style>
 <br>
 <div class="container-fluid">
     <div class="card card-default">
@@ -31,20 +38,20 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <select name="customer_id" id="customer" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                            <select name="customer_name" id="customer" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                                 <option value="" selected="selected">Pilih Customer</option>
                                                 @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ 'Customer : '.$customer->customer_name }}</option>
+                                                <option value="{{ $customer->customer_name }}">{{ 'Customer : '.$customer->customer_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <select name="customer_id" id="toko" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                            <select name="tokos_name" id="toko" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                                 <option value="" selected="selected">Pilih Toko</option>
                                                 @foreach ($tokos as $toko)
-                                                <option value="{{ $toko->id }}">{{ 'Toko : '.$toko->toko.' / Nama Cust : '.$toko->customer_name }}</option>
+                                                <option value="{{ $toko->toko }}">{{ 'Toko : '.$toko->toko.' / Nama Cust : '.$toko->customer_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -69,7 +76,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list"></i></span>
                                     </div>
-                                    <input type="text" name="customer_name" class="form-control" value="{{ 'SRKT'.strtoupper(str_random(5)) }}" readonly>
+                                    <input type="text" name="customer_name" class="form-control" value="{{ 'RS-'.date('Ymdhis')  }}" readonly>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -175,8 +182,8 @@
                                     <div class="input-group">
                                         @forelse ($damages as $damage)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="damage_image" value="{{ $damage->damage_image }}">
-                                            <label class="form-check-label"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>
+                                            <input class="form-check-input" type="radio" name="damage_position" value="{{ $damage->damage_image }}">
+                                            <label class="form-check-label"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>&nbsp&nbsp
                                         </div>
                                         @empty
                                             
@@ -185,13 +192,13 @@
                                     <!-- /.input group -->
                                 </div>
                                 <h1>Gambar (Opsional)</h1>
-                                {{-- <div id="signature" style="width:100%"></div>
+                                <div id="signature" style="width:100%"></div>
 
                                 <input type='button' id='click' value='click'>
-                                <textarea id='output'></textarea><br/> --}}
+                                <input type="text" name="damage_image" id='output' ><br/>
 
                                 <!-- Preview image -->
-                                {{-- <img src='' id='sign_prev' style='display: none;' /> --}}
+                                <img src='' id='sign_prev' style='display: none;' />
                                 <!-- /.form group -->
                             </div>
                         </div>
@@ -250,7 +257,7 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $data['jenis_raket'] }}</td>
-                                                <td><img src="{{ asset('images/kerusakan/'.$data['damage_image']) }}" width="150px" height="100px"></td>
+                                                <td><img src="{{ asset('images/kerusakan/'.$data['damage_position']) }}" width="150px" height="100px"></td>
                                                 <td>{{ 'Rp. '.number_format($data['price'],0,',','.') }}</td>
                                                 <td>{{ $data['damage_qty'] }}</td>
                                                 <td>{{ 'Rp. '.number_format($data['price'] * $data['damage_qty'],0,',','.') }}</td>
@@ -267,7 +274,7 @@
                                 </div>
                                 
                                 <br>
-                                <button type="submit" class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
+                                <a href="{{ route('save_order') }}" type="submit" class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</a>
                                 <br>
                                 <!-- /.card-body -->
                             </div>
@@ -284,28 +291,10 @@
 
 @endsection
 @section('script')
-
+    
 <script src="{{ asset('assets') }}/libs/jSignature.min.js"></script>
 <script src="{{ asset('assets') }}/libs/modernizr.js"></script>
-<script>
-$(document).ready(function() {
 
- // Initialize jSignature
- var $sigdiv = $("#signature").jSignature({'UndoButton':true});
-
- $('#click').click(function(){
-  // Get response of type image
-  var data = $sigdiv.jSignature('getData', 'image');
-
-  // Storing in textarea
-  $('#output').val(data);
-
-  // Alter image source 
-  $('#sign_prev').attr('src',"data:"+data);
-  $('#sign_prev').show();
- });
-});
-</script>
 <script>
     $(function () {
         //Initialize Select2 Elements
@@ -392,6 +381,7 @@ $(document).ready(function() {
   // Alter image source 
   $('#sign_prev').attr('src',"data:"+data);
   $('#sign_prev').show();
+
  });
 });
 </script>

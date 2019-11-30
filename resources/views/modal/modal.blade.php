@@ -1,7 +1,7 @@
 <!-- Modal Tabel Customer -->
 <div class="modal fade" id="modal-primary">
     <div class="modal-dialog">
-        <div class="modal-content bg-primary">
+        <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title">Tambah Data Customer</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -43,7 +43,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-default">
         <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Customer</h4>
+            <h4 class="modal-title">Tambah Data Harga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
         </div>
