@@ -10,4 +10,5 @@ class Order extends Model
         'customer_id','date_of_entry','customer_name','no_raket','jenis_raket','damage_position','damage_image','damage_qty',
         'price','date_of_send','note'
     ];
+
 }

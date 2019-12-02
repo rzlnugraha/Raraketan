@@ -1,12 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<style>
-    html { font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif; background: #eee}
-    h1 { text-shadow: 1px 2px 5px #000; color: #fff }
-    canvas { background: #fff; border: 1px solid #999; -moz-border-radius: 10px; -webkit-border-radius: 10px }
-    a { color: #666; text-decoration: none }
-    a:hover { text-decoration: underline; color: #000 }
-</style>
 <br>
 <div class="container-fluid">
     <div class="card card-default">
@@ -38,7 +31,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <select name="customer_name" id="customer" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                            <select required name="customer_name" id="customer" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                                 <option value="" selected="selected">Pilih Customer</option>
                                                 @foreach ($customers as $customer)
                                                 <option value="{{ $customer->customer_name }}">{{ 'Customer : '.$customer->customer_name }}</option>
@@ -48,7 +41,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <select name="tokos_name" id="toko" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                            <select required name="tokos_name" id="toko" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                                 <option value="" selected="selected">Pilih Toko</option>
                                                 @foreach ($tokos as $toko)
                                                 <option value="{{ $toko->toko }}">{{ 'Toko : '.$toko->toko.' / Nama Cust : '.$toko->customer_name }}</option>
@@ -66,7 +59,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" value="{{ date('Y-m-d') }}" name="date_of_entry" class="form-control">
+                                    <input required type="date" value="{{ date('Y-m-d') }}" name="date_of_entry" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -76,7 +69,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list"></i></span>
                                     </div>
-                                    <input type="text" name="customer_name" class="form-control" value="{{ 'RS-'.date('Ymdhis')  }}" readonly>
+                                    <input required type="text" name="nota" class="form-control" value="{{ 'RS-'.date('Ymdhis')  }}" readonly>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -90,7 +83,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                     </div>
-                                    <input type="text" name="no_raket" class="form-control">
+                                    <input required type="number" name="no_raket" class="form-control" autocomplete="off">
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -102,7 +95,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input required type="date" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +112,7 @@
                                 <label>Merk Raket:</label>
             
                                 <div class="input-group">
-                                    <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;" id="merk_raket">
+                                    <select required name="merk_id" class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" style="width: 100%;" id="merk_raket">
                                         <option disabled selected="selected">Pilih</option>
                                         @foreach ($merks as $merk)
                                         <option value="{{ $merk->id }}">{{ $merk->merk_name }}</option>
@@ -131,7 +124,7 @@
                                 <label>Jenis Raket:</label>
             
                                 <div class="input-group">
-                                    <input name="jenis_raket" list="raket" class="form-control" autocomplete="off" placeholder="Harus pilih merk dulu">
+                                    <input required name="jenis_raket" list="raket" class="form-control" autocomplete="off" placeholder="Harus pilih merk dulu">
 
                                     <datalist id="raket">
                                         
@@ -146,7 +139,7 @@
                                 <label>Jumlah Kerusakan:</label>
             
                                 <div class="input-group">
-                                    <input name="damage_qty" type="number" name="damage_qty" id="damage_qty" min="1" class="form-control" placeholder="Jumlah Kerusakan ada berapa">
+                                    <input required name="damage_qty" type="number" name="damage_qty" id="damage_qty" min="1" class="form-control" placeholder="Jumlah Kerusakan ada berapa">
                                 </div>
                             </div>
 
@@ -154,7 +147,7 @@
                                     <label>Harga:</label>
                 
                                     <div class="input-group">
-                                        <select name="price" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                        <select required name="price" class="form-control select2 select2-primary" data-dropdown-css-class="select2-danger" style="width: 100%;">
                                             <option disabled selected>Pilih</option>
                                             @foreach ($prices as $price)
                                             <option value="{{ $price->price }}">{{ 'Rp. '.number_format($price->price,0,',','.') }}</option>
@@ -182,7 +175,7 @@
                                     <div class="input-group">
                                         @forelse ($damages as $damage)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="damage_position" value="{{ $damage->damage_image }}">
+                                            <input required class="form-check-input" type="radio" name="damage_position" value="{{ $damage->damage_image }}">
                                             <label class="form-check-label"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>&nbsp&nbsp
                                         </div>
                                         @empty
@@ -191,14 +184,14 @@
                                     </div>
                                     <!-- /.input group -->
                                 </div>
-                                <h1>Gambar (Opsional)</h1>
+                                {{-- <h1>Gambar (Opsional)</h1>
                                 <div id="signature" style="width:100%"></div>
 
                                 <input type='button' id='click' value='click'>
                                 <input type="text" name="damage_image" id='output' ><br/>
 
                                 <!-- Preview image -->
-                                <img src='' id='sign_prev' style='display: none;' />
+                                <img src='' id='sign_prev' style='display: none;' /> --}}
                                 <!-- /.form group -->
                             </div>
                         </div>
@@ -248,10 +241,12 @@
                                                 <th style="width: 60px">Action</th>
                                             </tr>
                                         </thead>
+                                        
                                         <tbody>
                                             @if ($datas != null)
                                             @php
                                                 $no = 1;
+                                                $kaka = [];
                                             @endphp
                                             @foreach ($datas as $index => $data)
                                             <tr>
@@ -267,15 +262,34 @@
                                             </tr>
                                             @endforeach
                                             @endif
-
                                         </tbody>
+                                        @php
+                                            $nol = 0;
+                                            if (!empty($datas)) {
+                                                $array = [];
+                                                foreach ($datas as $key) {
+                                                    $array[] = $key['price'] * $key['damage_qty'];
+                                                }
+                                                foreach ($array as $key) {
+                                                    $nol = $nol + $key;
+                                                }
+                                            }
+                                        @endphp 
+                                        <tfoot>
+                                        <tr>
+                                            <th colspan="6">Grand Total</th>
+                                            <td width="150px"><strong>{{ 'Rp. '.number_format($nol,0,',','.') }}</strong></td>
+                                        </tr>
+                                        </tfoot>
                                         </table>
                                     </div>
                                 </div>
                                 
-                                <br>
-                                <a href="{{ route('save_order') }}" type="submit" class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</a>
-                                <br>
+                                @if (!empty($datas))
+                                    <br>
+                                    <a href="{{ url('save_order/'.$nol) }}" type="submit" class="btn btn-primary col-md-4 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</a>
+                                    <br>
+                                @endif
                                 <!-- /.card-body -->
                             </div>
                         </div>

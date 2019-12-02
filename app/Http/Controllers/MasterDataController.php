@@ -88,7 +88,9 @@ class MasterDataController extends Controller
         } elseif ($request->tipe_store == 'damage') {
             $damage = Damage::find($id);
             $path = '/images/kerusakan/';
-            unlink(public_path($path.$damage->damage_image));
+            if (file_exists($path.$damage->damage->image)) {
+                unlink(public_path($path.$damage->damage_image));
+            }
 
             $foto = 'damage-' . str_random(2) . time() . '.' . $request->file('damage_image')->getClientOriginalExtension();
             $request->damage_image->move(public_path($path), $foto);
@@ -112,7 +114,9 @@ class MasterDataController extends Controller
         }elseif ($type == 'damage') {
             $dmg = Damage::find($id);
             $path = '/images/kerusakan/';
-            unlink(public_path($path.$dmg->damage_image));
+            if (file_exists($path.$dmg->damage_image)) {
+                unlink(public_path($path.$dmg->damage_image));
+            }
             $damage = Damage::destroy($id);
 
         }elseif ($type == 'merk') {

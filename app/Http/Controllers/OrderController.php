@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
+use App\Customer, Alert;
 use App\Damage;
 use App\Merk, Session;
 use App\Order;
+use App\Ordermaster;
 use App\Price;
 use App\Typeraket;
 use Illuminate\Http\Request;
@@ -45,6 +46,7 @@ class OrderController extends Controller
             'price' => $request->price,
             'date_of_send' => $request->date_of_send,
             'note' => $request->note,
+            'merk_id' => $request->merk_id,
         ];
 
         $request->session()->push('list', $data);
@@ -57,28 +59,62 @@ class OrderController extends Controller
         return back();
     }
 
-    public function save_order(Request $request)
+    public function save_order(Request $request, $grand_total)
     {
-        dd($request->session()->get('list'));
-        $order = new Order();
+        $array = [];
+        $grand_total = 0;
+        foreach ($request->session()->get('list') as $key) {
+            $array[] = $key['price'] * $key['damage_qty'];
+        }
+        foreach ($array as $key) {
+            $grand_total += $key;
+        }
+
+        foreach ($request->session()->get('list') as $datas) {
+            $date_of_entry = $datas['date_of_entry'];
+            $customer_name = $datas['customer_name'];
+            $tokos_name = $datas['tokos_name'];
+            $nota = $datas['nota'];
+            $date_of_send = $datas['date_of_send'];
+            $note = $datas['note'];
+        }
+
+        $master = Ordermaster::create([
+            'date_of_entry' => $date_of_entry,
+            'customer_name' => $customer_name,
+            'tokos_name' => $tokos_name,
+            'nota' => $nota,
+            'date_of_send' => $date_of_send,
+            'note' => $note,
+            'grand_total' => $grand_total
+        ]);
+
         $data = [];
         foreach ($request->session()->get('list') as $key) {
-            array_push($data,[
-                'date_of_entry' => $key['date_of_entry'],
-            'customer_name' => $key['customer_name'],
-            'tokos_name' => $key['tokos_name'],
-            'no_raket' => $key['no_raket'],
-            'nota' => $key['nota'],
-            'jenis_raket' => $key['jenis_raket'],
-            'damage_position' => $key['damage_position'],
-            'damage_image' => $key['damage_image'],
-            'damage_qty' => $key['damage_qty'],
-            'price' => $key['price'],
-            'date_of_send' => $key['date_of_send'],
-            'note' => $key['note'],
-            ]);
+            $order = new Order();
+            $data[] = [
+                $no_raket = $key['no_raket'],
+                $jenis_raket = $key['jenis_raket'],
+                $damage_position = $key['damage_position'],
+                $damage_image = $key['damage_image'],
+                $damage_qty = $key['damage_qty'],
+                $price = $key['price'],
+                $merk_id = $key['merk_id'],
+                $ordermaster_id = $master->id,
+            ];
+            $order->no_raket = $no_raket;
+            $order->jenis_raket = $jenis_raket;
+            $order->damage_position = $damage_position;
+            $order->damage_image = $damage_image;
+            $order->damage_qty = $damage_qty;
+            $order->price = $price;
+            $order->merk_id = $merk_id;
+            $order->ordermaster_id = $ordermaster_id;
+            $order->save();
         }
-        $order->create($data);
 
+        $request->session()->forget('list');
+        Alert::success('Berhasil','Success');
+        return back();
     }
 }
