@@ -30,7 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Order
     Route::post('/store_order','OrderController@store')->name('order.store');
     Route::get('/delete_session/{index}','OrderController@delete')->name('delete_session');
-    Route::get('/save_order/{grand_total}', 'OrderController@save_order')->name('save_order');
+    Route::POST('/save_order', 'OrderController@save_order')->name('save_order');
+    Route::get('/history-order','OrderController@historyOrder')->name('history.order');
 
     // Dynamic Dropdown Ajax
     Route::get('/merk','AjaxController@merk')->name('merk_dropdown');

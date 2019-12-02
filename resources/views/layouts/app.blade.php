@@ -101,7 +101,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('') }}" class="nav-link {{ Request::is('history-order*') ? 'active' : '' }}">
+                            <a href="{{ url('history-order') }}" class="nav-link {{ Request::is('history-order*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     History Pesanan
@@ -124,7 +124,6 @@
 
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('modal.modal')
         @yield('content')
         <!-- Content Header (Page header) -->
         

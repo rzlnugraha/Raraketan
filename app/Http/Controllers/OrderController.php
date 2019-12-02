@@ -28,26 +28,25 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // $image = $request->damage_image_draw;  // your base64 encoded
-        // $image = str_replace('data:image/png;base64,', '', $image);
-        // $imageName = str_random(10) . '.' . 'png';
-        // $hasil = File::put(public_path() . '/' . $imageName, base64_decode($image));
-        // dd($image);
+        $jenis_raket = ucwords($request->jenis_raket);
         $data = [
-            'date_of_entry' => $request->date_of_entry,
-            'customer_name' => $request->customer_name,
-            'tokos_name' => $request->tokos_name,
             'no_raket' => $request->no_raket,
-            'nota' => $request->nota,
-            'jenis_raket' => $request->jenis_raket,
-            'damage_position' => $request->damage_position,
-            'damage_image' => $request->damage_image,
+            'merk_id' => $request->merk_id,
+            'jenis_raket' => $jenis_raket,
             'damage_qty' => $request->damage_qty,
             'price' => $request->price,
-            'date_of_send' => $request->date_of_send,
-            'note' => $request->note,
-            'merk_id' => $request->merk_id,
+            'damage_position' => $request->damage_position,
+            'damage_image' => $request->damage_image,
         ];
+
+
+        $typeraket = Typeraket::where('type_name',$jenis_raket)->first();
+        if (is_null($typeraket)) {
+            $inserttype = Typeraket::create([
+                'type_name' => $jenis_raket,
+                'merk_id' => $request->merk_id,
+            ]);
+        }
 
         $request->session()->push('list', $data);
         return back();
@@ -59,34 +58,17 @@ class OrderController extends Controller
         return back();
     }
 
-    public function save_order(Request $request, $grand_total)
+    public function save_order(Request $request)
     {
-        $array = [];
-        $grand_total = 0;
-        foreach ($request->session()->get('list') as $key) {
-            $array[] = $key['price'] * $key['damage_qty'];
-        }
-        foreach ($array as $key) {
-            $grand_total += $key;
-        }
-
-        foreach ($request->session()->get('list') as $datas) {
-            $date_of_entry = $datas['date_of_entry'];
-            $customer_name = $datas['customer_name'];
-            $tokos_name = $datas['tokos_name'];
-            $nota = $datas['nota'];
-            $date_of_send = $datas['date_of_send'];
-            $note = $datas['note'];
-        }
-
+        
         $master = Ordermaster::create([
-            'date_of_entry' => $date_of_entry,
-            'customer_name' => $customer_name,
-            'tokos_name' => $tokos_name,
-            'nota' => $nota,
-            'date_of_send' => $date_of_send,
-            'note' => $note,
-            'grand_total' => $grand_total
+            'date_of_entry' => $request->date_of_entry,
+            'customer_name' => $request->customer_name,
+            'tokos_name' => $request->tokos_name,
+            'nota' => $request->nota,
+            'date_of_send' => $request->date_of_send,
+            'note' => $request->note,
+            'grand_total' => $request->grand_total
         ]);
 
         $data = [];
@@ -116,5 +98,10 @@ class OrderController extends Controller
         $request->session()->forget('list');
         Alert::success('Berhasil','Success');
         return back();
+    }
+
+    public function historyOrder()
+    {
+        return view('history_order.index');
     }
 }

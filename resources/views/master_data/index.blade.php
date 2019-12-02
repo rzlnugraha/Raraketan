@@ -317,5 +317,7 @@
         </div>
     </div>
 </div>
+@include('modal.modal')
+
 
 @endsection
