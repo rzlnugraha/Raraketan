@@ -60,7 +60,6 @@ class OrderController extends Controller
 
     public function save_order(Request $request)
     {
-        
         $master = Ordermaster::create([
             'date_of_entry' => $request->date_of_entry,
             'customer_name' => $request->customer_name,
@@ -76,7 +75,7 @@ class OrderController extends Controller
             $order = new Order();
             $data[] = [
                 $no_raket = $key['no_raket'],
-                $jenis_raket = $key['jenis_raket'],
+                $jenis_raket = ucwords($key['jenis_raket']),
                 $damage_position = $key['damage_position'],
                 $damage_image = $key['damage_image'],
                 $damage_qty = $key['damage_qty'],
@@ -84,6 +83,7 @@ class OrderController extends Controller
                 $merk_id = $key['merk_id'],
                 $ordermaster_id = $master->id,
             ];
+
             $order->no_raket = $no_raket;
             $order->jenis_raket = $jenis_raket;
             $order->damage_position = $damage_position;
@@ -102,6 +102,13 @@ class OrderController extends Controller
 
     public function historyOrder()
     {
-        return view('history_order.index');
+        $data = Ordermaster::latest()->get();
+        return view('history_order.index', compact('data'));
+    }
+
+    public function detailOrder($id)
+    {
+        $detail = Order::where('ordermaster_id',$id)->join('merks','merks.id','orders.merk_id')->get();
+        return view('history_order.detail_order', compact('detail'));
     }
 }

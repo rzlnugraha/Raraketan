@@ -119,7 +119,7 @@
                     </ul>
                 </nav>
             </div>
-                <!-- /.sidebar -->
+            <!-- /.sidebar -->
         </aside>
 
   <!-- Content Wrapper. Contains page content -->
