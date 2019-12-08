@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
 Auth::routes();
@@ -10,6 +10,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('order', 'OrderController@order')->name('order');
     Route::get('master-data', 'MasterDataController@index')->name('masterdata.index');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/change-profile','HomeController@changeProfile')->name('change.profile');
+    Route::post('/save-profile','HomeController@saveProfile')->name('save.profile');
 
     // Master Data Customer/Toko
     Route::put('/update/{id}', 'MasterDataController@update')->name('update');
@@ -33,6 +35,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('/save_order', 'OrderController@save_order')->name('save_order');
     Route::get('/history-order','OrderController@historyOrder')->name('history.order');
     Route::get('/detail-order/{id}','OrderController@detailOrder')->name('detail.order');
+    Route::get('/detail-order/print/{id}','OrderController@detailPrint')->name('print.detail');
+
+    # Kirim Pesanan
+    Route::get('/send-order','OrderController@sendOrder')->name('send.order');
+    Route::get('/send-order/send/{id}','OrderController@sendOrderForm')->name('send.order.form');
+    Route::post('/send-order/save-send-order','OrderController@saveSendOrder')->name('save.send.order');
 
     // Dynamic Dropdown Ajax
     Route::get('/merk','AjaxController@merk')->name('merk_dropdown');

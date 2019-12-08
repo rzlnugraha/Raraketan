@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>History Pesanan</h1>
+            <h1>Kirim Pesanan</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -42,7 +42,7 @@
                   <td>{{ $item->nota }}</td>
                   <td>Rp. {{ number_format($item->grand_total,0,',','.') }}</td>
                   <td>{{ !empty($item->customer_name) ? $item->customer_name : $item->tokos_name }}</td>
-                  <td align="center"><a href="{{ url('detail-order').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-eye"></i></a> <a target="_blank" href="{{ url('detail-order/print').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-print"></i></a></td>
+                  <td align="center"><a href="{{ url('send-order/send').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-truck"></i></a></td>
                 </tr>
                 @empty
                  <tr>

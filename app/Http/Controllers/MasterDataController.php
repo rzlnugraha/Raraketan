@@ -41,7 +41,9 @@ class MasterDataController extends Controller
             $damage->damage_image = $foto;
             $damage->save();
         }
-        Alert::success('Berhasil menambah data','Success');
+
+        $request->session()->flash('alert_message', 'Data Berhasil Disimpan');
+        $request->session()->flash('alert_notif', 'success');
         return back();
     }
 
@@ -103,7 +105,9 @@ class MasterDataController extends Controller
             $typeraket = Typeraket::find($id);
             $typeraket->update($request->all());
         }
-        Alert::info('Berhasil merubah data','Success');
+        
+        $request->session()->flash('alert_message', 'Data Berhasil Disimpan');
+        $request->session()->flash('alert_notif', 'success');
         return redirect()->route('masterdata.index');
     }
 
@@ -125,13 +129,17 @@ class MasterDataController extends Controller
         }elseif ($type == 'tipe-merk') {
             $typeraket = Typeraket::destroy($id);
         }
+
+        session()->flash('alert_message', 'Data Berhasil Dihapus');
+        session()->flash('alert_notif', 'success');
         return redirect('master-data');
     }
 
     public function delete_customer($id)
     {
         Customer::destroy($id);
-        Alert::success('Berhasil menghapus data','Delete');
+        session()->flash('alert_message', 'Data Berhasil Dihapus');
+        session()->flash('alert_notif', 'success');
         return back();
     }
 

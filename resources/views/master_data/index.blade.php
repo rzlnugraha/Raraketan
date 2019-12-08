@@ -184,7 +184,7 @@
                             @endphp
                             @forelse ($damages as $damage)
                             <tr>
-                                <td>{{ $no }}</td>
+                                <td>{{ $no++ }}</td>
                                 <td><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" alt="" width="150px" height="100px"></td>
                                 <td>
                                     <ul class="list-inline">

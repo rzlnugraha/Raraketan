@@ -120,10 +120,12 @@
                                     <label>List Kerusakan:</label>
                                     
                                     <div class="input-group">
+                                        @php $no=1; @endphp
                                         @forelse ($damages as $damage)
-                                        <div class="form-check">
-                                            <input required class="form-check-input" type="radio" name="damage_position" value="{{ $damage->damage_image }}">
-                                            <label class="form-check-label"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>&nbsp&nbsp
+                                        <div class="icheck-primary d-inline">
+                                                <input type="radio" id="radioPrimary{{ $jadi = $no++ }}" name="damage_position" value="{{ $damage->damage_image }}">
+                                                <label for="radioPrimary{{ $jadi }}"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>&nbsp&nbsp
+                                                </label>
                                         </div>
                                         @empty
                                         
@@ -197,14 +199,14 @@
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i class="fas fa-list"></i></span>
                                                                 </div>
-                                                                <input required type="text" name="nota" class="form-control" value="{{ 'RS'.date('Ymd').'-'.rand(9,7848)  }}" readonly>
+                                                                <input required type="text" name="nota" class="form-control" value="{{ 'RS'.date('Ymd').'-'.rand(9,784)  }}{{ !empty($last_order_id->id) ? $last_order_id->id : '0' }}" readonly>
                                                             </div>
                                                             <!-- /.input group -->
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <label>Customer:</label>
                                                         
                                                         <div class="input-group">
@@ -216,7 +218,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-5">
                                                         <label>Customer Toko:</label>
                                                         
                                                         <div class="input-group">
@@ -232,7 +234,7 @@
                                                 <!-- /.input group -->
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <label>Tanggal Masuk:</label>
                                                         
@@ -244,19 +246,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Tanggal Dikirim / Diambil:</label>
-                                                        
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                                            </div>
-                                                            <input required type="date" name="date_of_send" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
                                             </div>                                      
                                         </div>
                                         <br>
@@ -322,6 +311,9 @@
                                 <!-- /.card-body -->
                             </div>
                             @if (!empty($datas))
+                            <br>
+                            <label ">Keterangan: </label>
+                            <textarea name="note" id="note" cols="30" rows="5" class="form-control"></textarea>
                             <br>
                             <button type="submit" class="btn btn-primary col-md-12 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
                             <br>

@@ -37,18 +37,31 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-gray navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
+            
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
+      <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              {{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+              <div class="dropdown-divider"></div>
+              <a href="{{ url('change-profile') }}" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> Rubah Password
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="{{ route('logout') }}"class="dropdown-item"
+                    onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                   <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+          </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('logout') }}" class="nav-link"
-            onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-            Logout
-        </a>
+        
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
@@ -70,17 +83,6 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                @auth
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('assets') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                    </div>
-                </div>
-                @endauth
-                
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -101,7 +103,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('history-order') }}" class="nav-link {{ Request::is('history-order*') ? 'active' : '' }}">
+                            <a href="{{ url('send-order') }}" class="nav-link {{ Request::is('send-order*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-truck"></i>
+                                <p>
+                                    Kirim Pesanan
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('history-order') }}" class="nav-link {{ Request::is('history-order*') ? 'active' : '' }} {{ Request::is('detail-order*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     History Pesanan
@@ -124,6 +134,15 @@
 
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        @if (session()->has('alert_message'))
+        <div class="content"><br>
+                <div class="alert alert-{{ session()->get('alert_notif') }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fas fa-check"></i> {{ session()->get('alert_message') }}!</h5>
+                </div>
+        </div>
+        {{ session()->forget('alert_message') }}
+        @endif
         @yield('content')
         <!-- Content Header (Page header) -->
         
