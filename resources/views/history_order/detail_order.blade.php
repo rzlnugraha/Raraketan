@@ -55,6 +55,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>No Raket</th>
                                             <th>Merk</th>
                                             <th>Jenis</th>
@@ -65,12 +66,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $no=1; @endphp
                                         @forelse ($detail as $item)
                                         <tr>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $item->no_raket }}</td>
                                             <td>{{ $item->merk_name }}</td>
                                             <td>{{ $item->jenis_raket }}</td>
-                                            <td><img src="{{ asset('images').'/kerusakan/' }}{{ !empty($item->damage_position) ? $item->damage_position : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px"></td>
+                                            <td>
+                                                @php
+                                                    $unseri = @unserialize($item->damage_position);
+                                                @endphp
+                                                @if ($unseri !== false)
+                                                @foreach ($unseri as $dmg)
+                                                <img src="{{ asset('images').'/kerusakan/' }}{{ !empty($dmg) ? $dmg : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px">
+                                                @endforeach
+                                                @else
+                                                <img src="{{ asset('images').'/kerusakan/' }}{{ !empty($item->damage_position) ? $item->damage_position : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px">
+                                                @endif
+                                            </td>
                                             <td>{{ $item->damage_qty }}</td>
                                             <td>{{ number_format($item->price) }}</td>
                                             <td>{{ number_format($item->price*$item->damage_qty) }}</td>
@@ -81,7 +95,7 @@
                                         </tr>
                                         @endforelse
                                         <tr>
-                                            <td align="right" colspan="6"><strong>Grand Total</strong></td>
+                                            <td align="right" colspan="7"><strong>Grand Total</strong></td>
                                             <td><strong>{{ number_format($detail[0]->grand_total) }}</strong></td>
                                         </tr>
                                     </tbody>

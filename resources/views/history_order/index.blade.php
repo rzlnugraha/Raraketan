@@ -42,7 +42,7 @@
                   <td>{{ $item->nota }}</td>
                   <td>Rp. {{ number_format($item->grand_total,0,',','.') }}</td>
                   <td>{{ !empty($item->customer_name) ? $item->customer_name : $item->tokos_name }}</td>
-                  <td align="center"><a href="{{ url('detail-order').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-eye"></i></a> <a target="_blank" href="{{ url('detail-order/print').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-print"></i></a></td>
+                  <td align="center"><a href="{{ url('detail-order').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-eye"></i></a> <a target="_blank" href="{{ url('detail-order/print').'/'.$item->id }}" class="btn btn-primary"><i class="fa fa-print"></i></a> <a  href="{{ url('hapus-order').'/'.$item->id }}" onclick="return confirm('Apakah anda yakin akan menghapus ?')" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 @empty
                  <tr>

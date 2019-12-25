@@ -65,22 +65,23 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>No Raket</th>
+                                            <th width="50px">No</th>
+                                            <th width="150px">No Raket</th>
                                             <th>Merk</th>
                                             <th>Jenis</th>
-                                            <th>Posisi Kerusakan</th>
-                                            <th>Jumlah Kerusakan</th>
+                                            <th width="80px">Jumlah Kerusakan</th>
                                             <th>Harga</th>
                                             <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $no=1; @endphp
                                         @forelse ($detail as $item)
                                         <tr>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $item->no_raket }}</td>
                                             <td>{{ $item->merk_name }}</td>
                                             <td>{{ $item->jenis_raket }}</td>
-                                            <td><img src="{{ asset('images').'/kerusakan/' }}{{ !empty($item->damage_position) ? $item->damage_position : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px"></td>
                                             <td>{{ $item->damage_qty }}</td>
                                             <td>{{ number_format($item->price) }}</td>
                                             <td>{{ number_format($item->price*$item->damage_qty) }}</td>
@@ -104,7 +105,6 @@
                         <div class="row">
                             <!-- accepted payments column -->
                             <div class="col-6">
-                                catatan : {{ $detail[0]->note }}
                             </div>
                             <!-- /.col -->
                             <div class="col-6">

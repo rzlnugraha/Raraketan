@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/history-order','OrderController@historyOrder')->name('history.order');
     Route::get('/detail-order/{id}','OrderController@detailOrder')->name('detail.order');
     Route::get('/detail-order/print/{id}','OrderController@detailPrint')->name('print.detail');
+    Route::get('/hapus-order/{id}','OrderController@hapusOrder')->name('hapus.order');
 
     # Kirim Pesanan
     Route::get('/send-order','OrderController@sendOrder')->name('send.order');

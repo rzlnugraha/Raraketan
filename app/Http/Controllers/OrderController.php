@@ -42,7 +42,6 @@ class OrderController extends Controller
             'damage_image' => $request->damage_image,
         ];
 
-
         $typeraket = Typeraket::where('type_name',$jenis_raket)->first();
         if (is_null($typeraket)) {
             $inserttype = Typeraket::create([
@@ -63,6 +62,8 @@ class OrderController extends Controller
 
     public function save_order(Request $request)
     {
+        // $unseri = @unserialize($request->date_of_entry);
+        // dd($unseri);
         try {
             $master = Ordermaster::create([
                 'date_of_entry' => $request->date_of_entry,
@@ -80,13 +81,14 @@ class OrderController extends Controller
                 $data[] = [
                     $no_raket = $key['no_raket'],
                     $jenis_raket = ucwords($key['jenis_raket']),
-                    $damage_position = $key['damage_position'],
+                    $damage_position = serialize($key['damage_position']),
                     $damage_image = $key['damage_image'],
                     $damage_qty = $key['damage_qty'],
                     $price = $key['price'],
                     $merk_name = ucwords($key['merk_name']),
                     $ordermaster_id = $master->id,
                 ];
+                
     
                 $order->no_raket = $no_raket;
                 $order->jenis_raket = $jenis_raket;
@@ -113,8 +115,24 @@ class OrderController extends Controller
 
     public function historyOrder()
     {
-        $ordermaster = Ordermaster::where('status',2)->latest()->get();
+        $ordermaster = Ordermaster::where('status',2)->orderBy('id','ASC')->get();
         return view('history_order.index', compact('ordermaster'));
+    }
+
+    public function hapusOrder($id)
+    {
+        try {
+            $orderdetail = Order::where('ordermaster_id',$id)->delete();
+            $ordermaster = Ordermaster::destroy($id);
+            session()->flash('alert_message', 'Data Berhasil Disimpan');
+            session()->flash('alert_notif', 'success');
+            return back();
+        } catch (\Throwable $th) {
+            session()->flash('alert_message', $th->getMessage());
+            session()->flash('alert_notif', 'danger');
+            return back();
+        }
+
     }
 
     public function detailOrder($id)
@@ -147,7 +165,7 @@ class OrderController extends Controller
 
     public function sendOrder()
     {
-        $ordermaster = Ordermaster::where('status',1)->latest()->get();
+        $ordermaster = Ordermaster::where('status',1)->orderBy('id','ASC')->get();
         return view('order.send_order', compact('ordermaster'));
     }
 

@@ -132,7 +132,18 @@
                                                             <td>{{ $item->no_raket }}</td>
                                                             <td>{{ $item->merk_name }}</td>
                                                             <td>{{ $item->jenis_raket }}</td>
-                                                            <td><img src="{{ asset('images').'/kerusakan/' }}{{ !empty($item->damage_position) ? $item->damage_position : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px"></td>
+                                                            <td>
+                                                                @php
+                                                                    $unseri = @unserialize($item->damage_position);
+                                                                @endphp
+                                                                @if ($unseri !== false)
+                                                                @foreach ($unseri as $dmg)
+                                                                <img src="{{ asset('images').'/kerusakan/' }}{{ !empty($dmg) ? $dmg : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px">
+                                                                @endforeach
+                                                                @else
+                                                                <img src="{{ asset('images').'/kerusakan/' }}{{ !empty($item->damage_position) ? $item->damage_position : $item->damage_image }}" alt="gambar kerusakkan" width="100px" height="100px">
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $item->damage_qty }}</td>
                                                             <td>{{ number_format($item->price) }}</td>
                                                             <td>{{ number_format($item->price*$item->damage_qty) }}</td>

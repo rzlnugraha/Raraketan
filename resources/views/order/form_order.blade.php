@@ -123,7 +123,7 @@
                                         @php $no=1; @endphp
                                         @forelse ($damages as $damage)
                                         <div class="icheck-primary d-inline">
-                                                <input type="radio" id="radioPrimary{{ $jadi = $no++ }}" name="damage_position" value="{{ $damage->damage_image }}">
+                                                <input type="checkbox" id="radioPrimary{{ $jadi = $no++ }}" name="damage_position[]" value="{{ $damage->damage_image }}">
                                                 <label for="radioPrimary{{ $jadi }}"><img src="{{ asset('images/kerusakan/'.$damage->damage_image) }}" width="150px" height="100px"></label>&nbsp&nbsp
                                                 </label>
                                         </div>
@@ -249,6 +249,7 @@
                                             </div>                                      
                                         </div>
                                         <br>
+                                        <div class="table-responsive">
                                         <table class="table table-striped datatable">
                                             <thead>
                                                 <tr>
@@ -272,7 +273,15 @@
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $data['jenis_raket'] }}</td>
-                                                    <td><img src="{{ asset('images/kerusakan/'.$data['damage_position']) }}" width="150px" height="100px"></td>
+                                                    <td>
+                                                        @if (is_array($data['damage_position']))
+                                                        @foreach ($data['damage_position'] as $dmg)
+                                                        <img src="{{ asset('images/kerusakan/'.$dmg) }}" width="150px" height="100px">
+                                                        @endforeach 
+                                                        @else
+                                                        <img src="{{ asset('images/kerusakan/'.$data['damage_position']) }}" width="150px" height="100px">
+                                                        @endif  
+                                                    </td>
                                                     <td>{{ 'Rp. '.number_format($data['price'],0,',','.') }}</td>
                                                     <td>{{ $data['damage_qty'] }}</td>
                                                     <td>{{ 'Rp. '.number_format($data['price'] * $data['damage_qty'],0,',','.') }}</td>
@@ -305,6 +314,7 @@
                                             </tfoot>
                                         </table>
                                     </div>
+                                    </div>
                                 </div>
                                 
                                 
@@ -315,7 +325,7 @@
                             <label ">Keterangan: </label>
                             <textarea name="note" id="note" cols="30" rows="5" class="form-control"></textarea>
                             <br>
-                            <button type="submit" class="btn btn-primary col-md-12 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
+                            <button type="submit" id="submitorder" class="btn btn-primary col-md-12 mx-auto btn-lg"><i class="fa fa-save"></i> SIMPAN PESANAN</button>
                             <br>
                             @endif
                         </form>
@@ -336,7 +346,15 @@
     
     <script src="{{ asset('assets') }}/libs/jSignature.min.js"></script>
     <script src="{{ asset('assets') }}/libs/modernizr.js"></script>
-    
+    <script>
+    $("#submitorder").click(function(){
+        if ($('#customer').val() == '' && $('#toko').val() == '') {
+        alert("Harap isi customer terlebih dahulu");
+        }else{
+            $('#submitorder').addClass('disabled');
+        }
+    });
+    </script>
     <script>
         $(function () {
             //Initialize Select2 Elements
