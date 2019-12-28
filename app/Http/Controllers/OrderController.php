@@ -205,6 +205,7 @@ class OrderController extends Controller
     
             $ordermaster = Ordermaster::find($request->ordermaster_id);
             $ordermaster->date_of_send = $request->date_of_send;
+            $ordermaster->note = $request->note; # edit keterangan
             $ordermaster->status = 2; # status selesai
             $ordermaster->save();
 

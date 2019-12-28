@@ -15,6 +15,8 @@ class AlterTableOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->text('damage_position')->change();
+            $table->softDeletes();
+
         });
     }
 
@@ -27,6 +29,8 @@ class AlterTableOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('damage_position')->change();
+            $table->dropColumn('deleted_at');
+
         });
     }
 }

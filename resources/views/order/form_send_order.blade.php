@@ -100,8 +100,15 @@
                                             </div>
                                             <!-- /.input group -->
                                         </div>
-                                    
-                                    
+
+                                        <div class="form-group">
+                                            <label>Keterangan:</label>
+                                            
+                                            <div class="input-group">
+                                                <textarea name="note" class="form-control">{{ $detail[0]->note }}</textarea>
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
                                 </div>
                             </div>
                         </div>
