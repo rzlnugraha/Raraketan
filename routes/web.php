@@ -47,5 +47,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/merk','AjaxController@merk')->name('merk_dropdown');
     Route::get('/json_rakets', 'AjaxController@json_rakets')->name('json_rakets');
 
-
+    // Export Excel
+    Route::get('/history-periode', 'OrderController@exportOrder')->name('exportOrder');
 });

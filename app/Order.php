@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Ordermaster;
 
 class Order extends Model
 {
@@ -15,4 +16,8 @@ class Order extends Model
         'price','date_of_send','note'
     ];
 
+    public function ordermaster()
+    {
+    	return $this->belongsTo(Ordermaster::class);
+    }
 }

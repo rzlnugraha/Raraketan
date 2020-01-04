@@ -54,6 +54,30 @@
             </div>
             <!-- /.card-body -->
           </div>
+          <div class="card">
+            <div class="card-header">
+              Export Excel
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <form class="form-inline" action="{{ route('exportOrder') }}">
+                <div class="form-group">
+                  <label for="tglawal">Tanggal Awal:</label>
+                  <input type="date" class="form-control ml-2" id="tglawal" name="tglawal">
+                </div>
+                <div class="form-group">
+                  <label for="tglakhir" class="control-label ml-3">Tanggal Akhir:</label>
+                  <input type="date" class="form-control ml-2" id="tglakhir" name="tglakhir">
+                </div>
+                <button type="submit" class="btn btn-primary ml-3">Lihat</button>
+              </form>
+
+              @if(isset($data))
+                ada datanya
+              @endif
+            </div>
+            <!-- /.card-body -->
+          </div>
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -67,9 +91,9 @@
 
 @section('script')
 <script>
-        $(function () {
-          $("#example1").DataTable();
-          
-        });
+    $(function () {
+      $("#example1").DataTable();
+      
+    });
 </script>
 @endsection
