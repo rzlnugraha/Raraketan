@@ -26,7 +26,9 @@ class ExportPesanan implements FromView, ShouldAutoSize
     public function view() : View
     {
     	return view('data_export',[
+            'tglawal' => $this->awal,
+            'tglakhir' => $this->akhir,
     		'data' => Ordermaster::with('orders')->whereBetween('ordermasters.created_at',[$this->awal,$this->akhir])->get()
-    	]);
+        ]);
     }
 }

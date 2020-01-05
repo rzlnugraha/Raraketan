@@ -1,6 +1,9 @@
 <table>
 	<thead>
 		<tr>
+			<th colspan="6" align="center"><strong>Laporan Penjualan Tanggal {{ date('d F Y', strtotime($tglawal)) }} - {{ date('d F Y', strtotime($tglakhir)) }}</strong></th>
+		</tr>
+		<tr>
 			<th bgcolor="grey"><strong>No</strong></th>
 			<th bgcolor="grey"><strong>No Pesanan</strong></th>
 			<th bgcolor="grey"><strong>Tanggal Masuk</strong></th>
