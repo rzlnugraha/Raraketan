@@ -1,12 +1,12 @@
 <table>
 	<thead>
 		<tr>
-			<th bgcolor="red"><strong>No</strong></th>
-			<th bgcolor="red"><strong>No Pesanan</strong></th>
-			<th bgcolor="red"><strong>Tanggal Masuk</strong></th>
-			<th bgcolor="red"><strong>Tanggal Kirm</strong></th>
-			<th bgcolor="red"><strong>Customer/Toko</strong></th>
-			<th bgcolor="red"><strong>Grand Total</strong></th>
+			<th bgcolor="grey"><strong>No</strong></th>
+			<th bgcolor="grey"><strong>No Pesanan</strong></th>
+			<th bgcolor="grey"><strong>Tanggal Masuk</strong></th>
+			<th bgcolor="grey"><strong>Tanggal Kirm</strong></th>
+			<th bgcolor="grey"><strong>Customer/Toko</strong></th>
+			<th bgcolor="grey"><strong>Grand Total</strong></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,11 +22,11 @@
 		</tr>
 			<tr>
 				<th></th>
-				<th bgcolor="red" align="center"><strong>No Raket</strong></th>
-				<th bgcolor="red" align="center"><strong>Merk</strong></th>
-				<th bgcolor="red" align="center"><strong>Jenis Raket</strong></th>
-				<th bgcolor="red" align="center"><strong>Jumlah Kerusakan</strong></th>
-				<th bgcolor="red" align="center"><strong>Harga</strong></th>
+				<th bgcolor="brown" align="center"><strong>No Raket</strong></th>
+				<th bgcolor="brown" align="center"><strong>Merk</strong></th>
+				<th bgcolor="brown" align="center"><strong>Jenis Raket</strong></th>
+				<th bgcolor="brown" align="center"><strong>Jumlah Kerusakan</strong></th>
+				<th bgcolor="brown" align="center"><strong>Harga</strong></th>
 			</tr>
 				@foreach($dt->orders as $order)
 				<tr>
@@ -38,6 +38,10 @@
 					<td align="center">Rp. {{number_format($order->price,0,',','.')}}</td>
 				</tr>
 				@endforeach
+				<tr>
+					<th colspan="6"></th>
+					<td></td>
+				</tr>
 		@endforeach
 	</tbody>
 </table>

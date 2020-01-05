@@ -254,7 +254,7 @@ class OrderController extends Controller
         // return Excel::download(new ExportPesanan($request->tglawal, $request->tglakhir), 'tgl '.$request->tglawal.'-'.$request->tglakhir.'.xlsx');
         $awal = Carbon::parse($request->tglawal)->startOfDay();
         $akhir = Carbon::parse($request->tglakhir)->endOfDay();
-        $data = Ordermaster::with('orders')->whereBetween('ordermasters.created_at',[$awal,$akhir])->get();
+        $data = Ordermaster::with('orders')->whereBetween('ordermasters.date_of_entry',[$awal,$akhir])->get();
         $name_file = 'Export pesanan '.$request->tglawal.' '.$request->tglakhir.'.xlsx';
         return Excel::download(new ExportPesanan($awal,$akhir), $name_file);
         // return view('data_export',compact('data'));

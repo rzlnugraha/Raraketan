@@ -69,12 +69,8 @@
                   <label for="tglakhir" class="control-label ml-3">Tanggal Akhir:</label>
                   <input type="date" class="form-control ml-2" id="tglakhir" name="tglakhir">
                 </div>
-                <button type="submit" class="btn btn-primary ml-3">Lihat</button>
+                <button type="submit" class="btn btn-primary ml-3">Download Excel</button>
               </form>
-
-              @if(isset($data))
-                ada datanya
-              @endif
             </div>
             <!-- /.card-body -->
           </div>
